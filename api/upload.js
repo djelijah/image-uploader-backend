@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
         const form = new formidable.IncomingForm();
         form.parse(req, (err, fields, files) => {
             if (err) {
+                console.error('Form parse error:', err);
                 res.status(500).json({ message: 'Form parse error' });
                 return;
             }
@@ -29,6 +30,7 @@ module.exports = async (req, res) => {
 
             s3.upload(params, (err, data) => {
                 if (err) {
+                    console.error('Upload error:', err);
                     res.status(500).json({ message: 'Upload error', error: err });
                     return;
                 }
